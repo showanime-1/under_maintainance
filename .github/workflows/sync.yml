@@ -3,26 +3,15 @@ name: Sync Repo A → Repo B
 on:
   push:
     branches:
-      - main   # change if your branch is different
+      - main
 
 jobs:
   sync:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repo A
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Push to Repo B
         run: |
-          git config --global user.name "sync-bot"
-          git config --global user.email "sync@bot.com"
-
-          git clone https://x-access-token:${{ secrets.REPO_B_TOKEN }}@https://github.com/showanime-4dx/Test.git target
-
-          rsync -av --delete --exclude '.git' ./ target/
-
-          cd target
-          git add .
-          git commit -m "Auto sync from Repo A" || echo "No changes"
-          git push
+          git push https://x-access-token:${{ secrets.REPO_B_TOKEN }}@github.com/showanime-4dx/Test.git HEAD:main
