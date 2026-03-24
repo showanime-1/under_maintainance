@@ -12,10 +12,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Push to Repo B
+      - name: Force push to Repo B
         run: |
-          git config --global user.name "sync-bot"
-          git config --global user.email "sync@bot.com"
-
-          git remote set-url origin https://x-access-token:${{ secrets.REPO_B_TOKEN }}@github.com/showanime-4dx/Test.git
-          git push origin HEAD:main
+          git push --force https://x-access-token:${{ secrets.REPO_B_TOKEN }}@github.com/showanime-4dx/Test.git HEAD:main
