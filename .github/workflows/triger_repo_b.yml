@@ -1,0 +1,19 @@
+name: Trigger Repo B Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger workflow in Repo B
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.REPO_B_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/showanime-4dx/Test/actions/workflows/react.yml/dispatches \
+            -d '{"ref":"main"}'
